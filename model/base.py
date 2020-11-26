@@ -12,7 +12,7 @@ db = client.devops
 
 class CRUDMixin(object):
     @classmethod
-    def find(cls, query={}, objects=True, **kwargs):
+    def find(cls, query=None, objects=True, **kwargs):
         """
         查询多条数据
         :param query: 查询条件（传入字典）
@@ -20,6 +20,7 @@ class CRUDMixin(object):
         :param kwargs: 查询条件
         :return: 对象 or 字典
         """
+        query = query or {}
         query.update(kwargs)
 
         col = cls.get_collection_name()
@@ -36,7 +37,7 @@ class CRUDMixin(object):
         return result
 
     @classmethod
-    def find_one(cls, query={}, objects=True, **kwargs):
+    def find_one(cls, query=None, objects=True, **kwargs):
         """
         查询单条数据
         :param query: 查询条件（传入字典）
@@ -44,6 +45,7 @@ class CRUDMixin(object):
         :param kwargs: 查询条件
         :return: 对象 or 字典
         """
+        query = query or {}
         query.update(kwargs)
 
         col = cls.get_collection_name()
