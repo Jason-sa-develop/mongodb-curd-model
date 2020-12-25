@@ -6,7 +6,7 @@ from bson import ObjectId
 from pymongo import MongoClient, cursor
 from pymongo.errors import CollectionInvalid
 
-client = MongoClient("mongodb://172.16.1.151:27017")
+client = MongoClient("mongodb://127.0.0.1:27017")
 db = client.devops
 
 
@@ -89,6 +89,7 @@ class CRUDMixin(object):
 
     @classmethod
     def aggregate(cls, pipeline):
+        """ 聚合查询 """
         col = cls.get_collection_name()
         result = col.aggregate(pipeline)
         return list(result)
@@ -197,22 +198,41 @@ class CRUDMixin(object):
         return data
 
 
-class Test(CRUDMixin):
-    __collection__ = "test"
+class User(CRUDMixin):
+    __collection__ = "users"
 
     def __init__(self, data=None, **kwargs):
         data = data or {}
         data.update(kwargs)
 
+        """ 自定义mongo文档属性 """
         self.id = data.get("_id")
         self.name = data.get("name")
         self.age = data.get("age")
+        self.sex = data.get("sex")
 
 
 if __name__ == '__main__':
-    # 保存新数据
-    print(123)
-    # t1 = Test(name="Jack", age=30, ee=2).save()
+    """ 插入单条数据 """
+    # 插入单条数据
+    # t1 = User(name="Jack", age=30, sex="M").save()
+    #
+    # user1 = {
+    #     "name": "Eric",
+    #     "age": 25,
+    #     "sex": "M"
+    # }
+    # t2 = User(**user1).save()
+
+    # # 插入多条数据
+    # user2 = [
+    #     {"name": "Xander", "age": 27, "sex": "M"},
+    #     {"name": "Koko", "age": 20, "sex": "F"},
+    #     {"name": "Gigi", "age": 17, "sex": "F"},
+    # ]
+    # for u in user2:
+    #     t2 = User(**u).save()
+
 
     # 查询数据
     # t2 = Test.find_one(name="Jack")
@@ -247,4 +267,3 @@ if __name__ == '__main__':
     # 分页查询
     # r = Test.query_paginate(query={"name": "用户1"}, page=1, limit=10)
     # print(r)
-
