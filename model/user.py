@@ -15,12 +15,13 @@ class User(CRUDMixin):
         self.sex = data.get("sex")
 
 
-# u1 = User.find_one(name="Jack")
-# print(u1)
-# count = User.count({})
-# print(count)
-pipeline = [{
-    "$match": {"name": "Eric"}
-}]
-res = User.aggregate(pipeline)
-print(res)
+if __name__ == '__main__':
+    # u1 = User.find_one(name="Jack")
+    # print(u1)
+    # count = User.count({})
+    # print(count)
+    pipeline = [{
+        "$match": {"name": "Eric"}
+    }]
+    res = User.aggregate(pipeline)
+    print(res)
