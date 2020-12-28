@@ -1,5 +1,6 @@
 from model.base import CRUDMixin
 
+
 class User(CRUDMixin):
     __collection__ = "users"
 
@@ -12,3 +13,14 @@ class User(CRUDMixin):
         self.name = data.get("name")
         self.age = data.get("age")
         self.sex = data.get("sex")
+
+
+# u1 = User.find_one(name="Jack")
+# print(u1)
+# count = User.count({})
+# print(count)
+pipeline = [{
+    "$match": {"name": "Eric"}
+}]
+res = User.aggregate(pipeline)
+print(res)
