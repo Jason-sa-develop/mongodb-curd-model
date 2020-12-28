@@ -6,16 +6,13 @@ import time
 from bson import ObjectId
 from pymongo import MongoClient
 from pymongo.errors import (
-    ConfigurationError,
     ConnectionFailure,
     WriteConcernError,
     CollectionInvalid,
     ServerSelectionTimeoutError,
 )
 
-# client = MongoClient("mongodb://127.0.0.1:27017")
-client = MongoClient("mongodb://23.231.23.3:27017")
-
+client = MongoClient("mongodb://127.0.0.1:27017")
 db = client.devops
 
 
