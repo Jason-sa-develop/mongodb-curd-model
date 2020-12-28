@@ -7,10 +7,9 @@
 当前project就是基于pymongo，封装一层类，即自定义数据库模型类：CRUDMixin
 
 
-
 # 2.使用
 1.创建一个集合类（一个集合对应一个类）
-```
+```python
 class User(CRUDMixin):
     __collection__ = "users"
 
@@ -26,7 +25,7 @@ class User(CRUDMixin):
 ```
 
 2.插入文档
-```
+```python
 # 插入单个文档
 ## 方法一
 obj1 = User(name="Jack", age=30, sex="M").save()
@@ -51,7 +50,7 @@ for u in user2:
 ```
 
 3.查询数据
-```
+```python
 # 查询单条数据（返回对象）
 u1 = User.find_one(name="Jack")
 print(u1.id, u1.name)
@@ -67,21 +66,21 @@ for i in u3:
 ```
 
 4.更新数据
-```
+```python
 u1 = User.find_one(name="Koko")
 u1.age = 30  # 更新数据
 u1.save()    # 保存更新
 ```
 
 5.删除数据
-```
+```python
 # 删除单条数据
 u1 = User.find_one(name="Jack").delete()
 print(t4)
 ```
 
 6.聚合查询
-```
+```python
 pipeline = [{
     "$match": {"name": "Eric"}
 }]
@@ -90,14 +89,14 @@ print(res)
 ```
 
 7.分页查询
-```
+```python
 # query：查询条件、page：当前页数、limit：每页显示数据条目数
 r = User.query_paginate(query={}, page=1, limit=10)
 print(r)
 ```
 
 8.数据统计
-```
+```python
 count = User.count({})
 print(count)
 ```
@@ -110,7 +109,6 @@ print(count)
 - 捕捉错误异常  √
 - 对错误异常进行优化显示  √
 - 聚合查询支持重试操作（需用户指定开启）  √
-
 
 ## 0.3（规划）
 - 支持日志记录
